@@ -49,7 +49,7 @@ function BonomoController() {
 	/**
 	 * 
 	 */
-	this.getPlaces = function(latitude, longitude, callback) {
+	this.getPlaces = function(checkin, callback) {
 		
 		var xhr = Titanium.Network.createHTTPClient();
 		xhr.onload = function() {
@@ -63,8 +63,19 @@ function BonomoController() {
 					"distancia": foursquareData[index].location.distance, 
 					"categoria": foursquareData[index].categories[0].name,
 					"imagen": foursquareData[index].categories[0].icon.prefix + '44.png',
-					"latitude": foursquareData[index].location.lat,
 					"longitude": foursquareData[index].location.lng,
+					"latitude": foursquareData[index].location.lat,
+					// NECESARIOS PARA EL SERVICIO
+					"location": {
+						"lng": foursquareData[index].location.lng,
+						"lat": foursquareData[index].location.lat
+					},
+					"name": foursquareData[index].name,
+					"id": foursquareData[index].id,
+					"categories":[{
+						"name": foursquareData[index].categories[0].name,
+						"id": foursquareData[index].categories[0].id
+					}]
 				});
 			}
 			callback(places);
@@ -74,8 +85,27 @@ function BonomoController() {
 	         Ti.API.debug(e.error);
 	    };
 	    
-		xhr.open("GET","https://api.foursquare.com/v2/venues/search?ll=" + latitude + "," + longitude + "&radius=1500&client_id=" + foursquareClient + "&client_secret=" + foursquareSecret + "&v=20120215" );
+		xhr.open("GET","https://api.foursquare.com/v2/venues/search?ll=" + checkin.latitude + "," + checkin.longitude + "&radius=1500&client_id=" + foursquareClient + "&client_secret=" + foursquareSecret + "&v=20120215" );
 		xhr.send();
+	}
+	
+	this.createEvent = function(eventoObject){
+		var post = {};
+		post.description = eventoObject.description;
+		post.duration = ((eventoObject.endTime - new Date())/1000)/60;
+		post.place = eventoObject.place;
+		
+		var xhr = Titanium.Network.createHTTPClient();
+		xhr.onerror = function(e) {
+	         Ti.API.debug(e.error);
+	    };
+		xhr.onload = function() {
+			//callback();
+			// TODO: Mandar a pantalla de status de evento
+		}
+		xhr.open("POST", SERVER_URL + "events/create_from_interface/" + Titanium.Facebook.getUid() +".json");
+		xhr.setRequestHeader("Content-Type","application/json; charset=utf-8");
+		xhr.send(JSON.stringify(post));
 	}
 	
 	/**

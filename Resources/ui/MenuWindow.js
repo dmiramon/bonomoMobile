@@ -40,8 +40,8 @@ function MenuWindow(controller, checkin) {
 	});
 	
 	createBtn.addEventListener('click', function(e) {
-		bonomoController.getPlaces(checkin.latitude, checkin.longitude, function(result) {
-			controller.open(new PlacesWindow(controller, result).window);
+		bonomoController.getPlaces(checkin, function(result) {
+			controller.open(new PlacesWindow(controller, checkin, result).window);
 		});
 	})
 	
