@@ -89,7 +89,7 @@ function BonomoController() {
 		xhr.send();
 	}
 	
-	this.createEvent = function(eventoObject){
+	this.createEvent = function(eventoObject, callback){
 		var post = {};
 		post.description = eventoObject.description;
 		post.duration = ((eventoObject.endTime - new Date())/1000)/60;
@@ -100,8 +100,7 @@ function BonomoController() {
 	         Ti.API.debug(e.error);
 	    };
 		xhr.onload = function() {
-			//callback();
-			// TODO: Mandar a pantalla de status de evento
+			callback();
 		}
 		xhr.open("POST", SERVER_URL + "events/create_from_interface/" + Titanium.Facebook.getUid() +".json");
 		xhr.setRequestHeader("Content-Type","application/json; charset=utf-8");

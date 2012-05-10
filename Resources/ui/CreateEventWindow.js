@@ -1,6 +1,7 @@
 function CreateEventWindow(controller, checkin, place) {
 	var BonomoController = require('/controller/BonomoController');
 	var bonomoController = new BonomoController();
+	var EventStatusWindow = require('EventStatusWindow');
 	
 	var window = Titanium.UI.createWindow({
 		layout: 'absolute',
@@ -41,7 +42,9 @@ function CreateEventWindow(controller, checkin, place) {
 		eventoObject.description = textArea.value;
 		eventoObject.endTime = endTimePicker.value;
 		eventoObject.place = place;
-		bonomoController.createEvent(eventoObject);
+		bonomoController.createEvent(eventoObject, function() {
+			controller.open(new EventStatusWindow(controller, eventoObject).window);
+		});
 	});
 	
 	var endValue = new Date();
