@@ -16,11 +16,17 @@ function BoredWindow(controller) {
 	
 	var viewBase = Titanium.UI.createView({
 		layout: 'vertical',
-		backgroundImage: '../images/fondoconbarra.png',
+		backgroundImage: '../images/fondosinbarra.png',
 		height: '100%'
 	});
 	
 	var view1 = Titanium.UI.createView({layout:'vertical'});
+	view1.add(Titanium.UI.createImageView({
+		backgroundImage: '../images/topbar.png',
+		width: '100%',
+		height: '49',
+	}));
+	view1.add(Titanium.UI.createView({height:20}));
 	view1.add(Titanium.UI.createImageView({
 		backgroundImage: '../images/howbored.png',
 		width: '268',
@@ -115,11 +121,10 @@ function BoredWindow(controller) {
 	view4.add(view5);
 	view4.add(Titanium.UI.createView({width:10})); 
 	
-	viewBase.add(Titanium.UI.createView({height:60}));
 	viewBase.add(view1);
-	viewBase.add(Titanium.UI.createView({height:15}));
+	viewBase.add(Titanium.UI.createView({height:25}));
 	viewBase.add(view2);
-	viewBase.add(Titanium.UI.createView({height:20}));
+	viewBase.add(Titanium.UI.createView({height:35}));
 	viewBase.add(view3);
 	viewBase.add(Titanium.UI.createView({height:10}));
 	viewBase.add(view4);
