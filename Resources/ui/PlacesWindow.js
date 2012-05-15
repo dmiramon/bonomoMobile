@@ -1,8 +1,8 @@
-function PlacesWindow(controller, places) {
+function PlacesWindow(controller, checkin, places) {
 	
 	var BonomoController = require('/controller/BonomoController');
 	var bonomoController = new BonomoController();
-	var PeopleWindow = require('PeopleWindow');
+	var CreateEventWindow = require('CreateEventWindow');
 	
 	var window = Titanium.UI.createWindow({
 		layout: 'absolute',
@@ -67,9 +67,7 @@ function PlacesWindow(controller, places) {
 	lista.data = data;
 	
 	lista.addEventListener('click', function(event) {
-		bonomoController.getPeople(function(result) {
-			controller.open(new PeopleWindow(controller, result).window);
-		});
+		controller.open(new CreateEventWindow(controller, checkin, places[event.index]).window);
 	});
 	
 	this.window = window;
