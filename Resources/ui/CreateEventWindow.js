@@ -44,6 +44,7 @@ function CreateEventWindow(controller, checkin, place) {
 		eventoObject.place = place;
 		bonomoController.createEvent(eventoObject, function(eventObjectResponse) {
 			controller.open(new EventStatusWindow(controller, eventObjectResponse).window);
+			window.close();
 		});
 	});
 	

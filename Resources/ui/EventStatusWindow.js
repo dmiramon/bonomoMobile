@@ -3,6 +3,7 @@ function EventStatusWindow(controller, eventObject) {
 	var BonomoController = require('/controller/BonomoController');
 	var bonomoController = new BonomoController();
 	var EventStatusWindow = require('EventStatusWindow');
+	var model = require('/model/Model');
 	
 	var window = Titanium.UI.createWindow({
 		layout: 'absolute',
@@ -49,6 +50,9 @@ function EventStatusWindow(controller, eventObject) {
 	
 	var data = [];
 	for (var index in eventObject.interactions) {
+		if (eventObject.interactions[index].type_id == 3){
+			continue;
+		}
 		var tableRow = Ti.UI.createTableViewRow({
 			layout: 'horizontal',
 			height: 'auto',
@@ -57,7 +61,7 @@ function EventStatusWindow(controller, eventObject) {
 		// IF TYPE 1 SHOW PINGS, IF NOT MARK AS CONFIRMED
 		var viewDatos = Titanium.UI.createView({layout: 'vertical'});
 		viewDatos.add(Titanium.UI.createLabel({
-			text: eventObject.interactions[index].user_from.name,
+			text: eventObject.interactions[index].user_from.name + " -> " + eventObject.interactions[index].user_to.name,
 			color: '#000000',
 			font: {
 				fontSize: 14
@@ -65,36 +69,65 @@ function EventStatusWindow(controller, eventObject) {
 		}));
 		
 		var texto = "";
+		var color_t = "";
 		if (eventObject.interactions[index].type_id == 1){
 			texto = "Meeting request";
+			color_t = '#4f4f4f';			
 		} else {
 			texto = "Request confirmed";
+			color_t ='#2a9a00';
 		}
 		
 		viewDatos.add(Titanium.UI.createLabel({
 			text: texto,
-			color: '#4f4f4f',
+			color: color_t,
 			textAlign: 'left',
 			left: 3,
 			font: {
 				fontSize: 12
 			}
 		}));
+		
 		tableRow.add(Titanium.UI.createImageView({
 			image: eventObject.interactions[index].user_from.thumbnail,
 			width: 44,
 			height: 44
 		}));
+		
 		tableRow.add(Titanium.UI.createView({width:5}));
 		tableRow.add(viewDatos);
+		
+		if(model.getUsuarioRuby().id == eventObject.owner.id && eventObject.interactions[index].type_id == 1){
+			
+			var confirmButton = Titanium.UI.createButton({
+				title: "Confirm"
+			});
+			
+			confirmButton.addEventListener('click', function(){
+				var dialog = Titanium.UI.createOptionDialog({
+			    	options:['Confirm', 'Cancel'],
+			    	title:'Confirm only if you are already waiting at the event.'
+				});
+				dialog.show();
+				dialog.addEventListener('click', function(e){
+					
+					if(e.index == 0){						
+						bonomoController.interact(eventObject.interactions[index].user_from.id, eventObject.id, 2, function(interactObject) {
+							bonomoController.showStatusEvent(eventObject, function(eventObjectResponse){
+								controller.open(new EventStatusWindow(controller, eventObjectResponse).window);
+							});							
+						});							
+					}
+				});
+				
+			});
+			
+			tableRow.add(confirmButton);
+		}
 		data.push(tableRow);
 	}
 
 	lista.data = data;
-	
-	lista.addEventListener('click', function(event) {
-		//controller.open(new CreateEventWindow(controller, checkin, places[event.index]).window);
-	});
 	
 	refreshButton.addEventListener('click', function(){
 		bonomoController.showStatusEvent(eventObject, function(eventResponseObject) {
