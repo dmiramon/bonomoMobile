@@ -148,10 +148,18 @@ function MoInfoWindow(controller, event) {
 	this.window = window;
 	
 	connectBtn.addEventListener('click', function(e) {
-		bonomoController.interact(owner.id, event.id, 1, function(result) {
-			Titanium.UI.createAlertDialog({
-				message: 'Your request has been sent'
-			}).show();
+		var dialog = Titanium.UI.createOptionDialog({
+	    	options:['Yes', 'No'],
+	    	title:'Are you sure you want to attend that event?'
+		});
+		dialog.show();
+		dialog.addEventListener('click', function(e){
+			
+			if(e.index == 0){				
+				bonomoController.interact(owner.id, event.id, 1, function(result) {
+					// TODO: Mandar a la pantalla de estatus de evento?							
+				});
+			}
 		});
 	});
 }
