@@ -139,7 +139,7 @@ function BonomoController() {
 	    };
 		xhr.onload = function() {
 			var result = JSON.parse(this.responseText);
-			callback();
+			callback(result);
 		};
 		xhr.open("POST", SERVER_URL + "interactions.json");
 		xhr.setRequestHeader("Content-Type","application/json; charset=utf-8");

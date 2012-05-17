@@ -33,6 +33,7 @@ function StartWindow(controller) {
 	var FacebookController = require('/controller/FacebookController');
 	var fbController = new FacebookController();	
 	var BoredWindow = require('BoredWindow');
+	var model = require('/model/Model');
 	var hasSession = Titanium.Facebook.getLoggedIn();
 	
 	var win = Titanium.UI.createWindow({
@@ -48,7 +49,12 @@ function StartWindow(controller) {
 		width: '100%',
 		height: '100%'
 	});
-	view1.add(Titanium.UI.createView({height:200}));
+	view1.add(Titanium.UI.createView({height:'20%'}));
+	view1.add(Titanium.UI.createImageView({
+		backgroundImage: '../images/bonomologo.png',
+		width: 247,
+		height: 107
+	}));
 	
 	var loginBtn = Titanium.UI.createButton({
 		backgroundImage: '../images/startFacebookButton.png',
@@ -83,6 +89,16 @@ function StartWindow(controller) {
 		syncFB();
 	
 	function syncFB() {
+		/*var loading = Titanium.UI.createActivityIndicator({
+		bottom: 60, 
+	    height: 'auto',
+	    width: 'auto',
+	    font: {fontFamily:'Helvetica Neue', fontSize:15, fontWeight:'bold'},
+	    color: 'white',
+	    style: Titanium.UI.iPhone.ActivityIndicatorStyle.BIG,
+	    message: 'Loading...'
+	});*/
+
 		bonomoController.synchronizeFB(function() {
 			controller.open(new BoredWindow(controller).window);
 			win.close();

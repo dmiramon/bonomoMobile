@@ -17,10 +17,19 @@ function MenuWindow(controller, checkin) {
 	var viewBase = Titanium.UI.createView({
 		layout: 'vertical',
 		backgroundImage: '../images/fondosinbarra.png',
+		width: '100%',
 		height: '100%'
 	});
 	
-	var view1 = Titanium.UI.createView({layout:'horizontal', bottom:'15%', left:'15%', right:'15%', top:'20%'});
+	var view1 = Titanium.UI.createView({
+		layout:'horizontal', 
+		bottom:'15%', 
+		left:'15%', 
+		right:'15%', 
+		top:'20%',
+		width: '100%',
+		height: '100%'
+	});
 	
 	var buscaView = Titanium.UI.createView({layout:'vertical'});
 	var buscaBtn = Titanium.UI.createButton({
@@ -51,7 +60,7 @@ function MenuWindow(controller, checkin) {
 	}));
 
 	view1.add(buscaView);
-	view1.add(Titanium.UI.createView({width:'40'}));
+	view1.add(Titanium.UI.createView({width:'15%'}));
 	view1.add(creaView);
 	viewBase.add(Titanium.UI.createImageView({
 		backgroundImage: '../images/topbar.png',

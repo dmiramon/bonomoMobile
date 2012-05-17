@@ -2,8 +2,9 @@ function EventsWindow(controller, events) {
 	
 	var BonomoController = require('/controller/BonomoController');
 	var bonomoController = new BonomoController();
-	var PeopleWindow = require('PeopleWindow');
+	var MoInfoWindow = require('MoInfoWindow');
 	
+	var size = 13;
 	var window = Titanium.UI.createWindow({
 		layout: 'absolute',
 		backgroundColor: '#FFFFFF',
@@ -11,7 +12,7 @@ function EventsWindow(controller, events) {
 		navBarHidden: true
 	});
 	
-	var view1 = Titanium.UI.createView({
+	var viewBase = Titanium.UI.createView({
 		layout: 'vertical',
 		backgroundImage: '../images/fondosinbarra.png',
 		height: '100%'
@@ -23,45 +24,79 @@ function EventsWindow(controller, events) {
 		top: 5
 	});
 	
-	view1.add(Titanium.UI.createImageView({
+	viewBase.add(Titanium.UI.createImageView({
 		backgroundImage: '../images/topbar.png',
 		width: '100%',
 		height: '49',
 	}));
-	view1.add(lista);
-	window.add(view1);
+	viewBase.add(lista);
+	window.add(viewBase);
 	
 	var data = [];
 	var par = 0;
 	for (var index in events) {
+		var owner;
+		for (var user in events[index].users) {
+			if (events[index].users[user].id == events[index].owner_id) {
+				owner = events[index].users[user];
+				break;
+			}
+		}
+		
 		var tableRow = Ti.UI.createTableViewRow({
 			layout: 'horizontal',
 			height: 'auto',
 			className: 'Event'
 		});
+		var viewLabels = Titanium.UI.createView({layout: 'vertical'});
+		viewLabels.add(Titanium.UI.createLabel({
+			text: "WHERE ",
+			color: '#F8B526',
+			left: '0',
+			textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+			font: {
+				fontSize: size
+			}
+		}));
+		viewLabels.add(Titanium.UI.createLabel({
+			text: "WHO ",
+			color: '#97D1FD',
+			textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+			left: '0',
+			font: {
+				fontSize: size
+			}
+		}));
 		var viewDatos = Titanium.UI.createView({layout: 'vertical'});
 		viewDatos.add(Titanium.UI.createLabel({
-			text: "WHERE " + events[index].place.name,
+			text: events[index].place.name,
 			color: '#000000',
+			textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+			left: '0',
 			font: {
-				fontSize: 14
+				fontSize: size
 			}
 		}));
 		viewDatos.add(Titanium.UI.createLabel({
-			text: "WHO " + events[index].users[0].name,
+			text: owner.name,
 			color: '#000000',
+			textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+			left: '0',
 			font: {
-				fontSize: 14
+				fontSize: size
 			}
 		}));
 		
 		var moreBtn = Titanium.UI.createButton({
 			backgroundImage: '../images/moinfo.png',
+			width: '61',
+			height: '26',
+			left: '3%',
+			right: '1%',
+			event: events[index]
 		});
 		moreBtn.addEventListener('click', function(event) {
-			//bonomoController.interact(function(result) {
-				event;
-			//});
+			controller.open(new MoInfoWindow(controller, event.source.event).window);
 		});
 		
 		if (par % 2 != 0) {
@@ -70,12 +105,15 @@ function EventsWindow(controller, events) {
 		
 		tableRow.add(Titanium.UI.createView({width:'5'}));
 		tableRow.add(Titanium.UI.createImageView({
-			image: events[index].users[0].thumbnail,
+			image: owner.thumbnail,
 			width: 45,
 			height: 45
 		}));
 		tableRow.add(Titanium.UI.createView({width:'5'}));
+		tableRow.add(viewLabels);
+		tableRow.add(Titanium.UI.createView({width:'5'}));
 		tableRow.add(viewDatos);
+		tableRow.add(Titanium.UI.createView({width:'15'}));
 		tableRow.add(moreBtn);
 		data.push(tableRow);
 		par++;
@@ -83,11 +121,11 @@ function EventsWindow(controller, events) {
 
 	lista.data = data;
 	
-	lista.addEventListener('click', function(event) {
+	/*lista.addEventListener('click', function(event) {
 		bonomoController.interact(events[event.index].owner_id, events[event.index].id, 1, function() {
 			null;
 		});
-	});
+	});*/
 	
 	this.window = window;
 }

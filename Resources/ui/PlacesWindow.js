@@ -11,7 +11,7 @@ function PlacesWindow(controller, checkin, places) {
 		navBarHidden: true
 	});
 	
-	var view1 = Titanium.UI.createView({
+	var viewBase = Titanium.UI.createView({
 		layout: 'vertical',
 		backgroundImage: '../images/fondoconbarra.png',
 		height: '100%'
@@ -25,10 +25,10 @@ function PlacesWindow(controller, checkin, places) {
 		bottom: 2,
 		top: 5
 	});
-	view1.add(Titanium.UI.createView({height: 35}));
-	view1.add(label);
-	view1.add(lista);
-	window.add(view1);
+	viewBase.add(Titanium.UI.createView({height: 35}));
+	viewBase.add(label);
+	viewBase.add(lista);
+	window.add(viewBase);
 	
 	var data = [];
 	for (var index in places) {

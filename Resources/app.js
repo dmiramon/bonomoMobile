@@ -15,7 +15,7 @@ new ApplicationWindow().open();*/
 
 var NavigationController = require('controller/NavigationController'),
 	StartWindow = require('ui/StartWindow');
-	
+
 var navController = new NavigationController();
 var start = new StartWindow(navController);
 
