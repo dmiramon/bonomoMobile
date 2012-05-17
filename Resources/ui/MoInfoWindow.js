@@ -57,7 +57,8 @@ function MoInfoWindow(controller, event) {
 		textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 		left: '3%',
 		font: {
-			fontSize: size
+			fontSize: 16,
+			fontFamily: 'take_out_the_garbage'
 		}
 	}));
 	viewWho.add(Titanium.UI.createView({width:'2%'}));
@@ -79,7 +80,8 @@ function MoInfoWindow(controller, event) {
 		textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 		left: '3%',
 		font: {
-			fontSize: size
+			fontSize: 16,
+			fontFamily: 'take_out_the_garbage'
 		}
 	}));
 	viewBase.add(Titanium.UI.createLabel({
@@ -106,7 +108,8 @@ function MoInfoWindow(controller, event) {
 		textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 		left: '3%',
 		font: {
-			fontSize: size
+			fontSize: 16,
+			fontFamily: 'take_out_the_garbage'
 		}
 	}));
 	viewWhere.add(Titanium.UI.createView({width:'2%'}));

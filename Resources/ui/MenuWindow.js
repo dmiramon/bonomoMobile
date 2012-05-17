@@ -48,8 +48,8 @@ function MenuWindow(controller, checkin) {
 	var creaView = Titanium.UI.createView({layout:'vertical'});
 	var creaBtn = Titanium.UI.createButton({
 		backgroundImage: '../images/makeicon.png',
-		width: '56',
-		height: '77'
+		width: '81',
+		height: '81'
 	});
 	creaView.add(creaBtn);
 	creaView.add(Titanium.UI.createView({height:'5'}));
@@ -77,7 +77,7 @@ function MenuWindow(controller, checkin) {
 	
 	buscaBtn.addEventListener('click', function(e) {
 		bonomoController.getEvents(function(result) {
-			controller.open(new EventsWindow(controller, result).window);
+			controller.open(new EventsWindow(controller, checkin, result).window);
 		});
 	});
 	
@@ -85,7 +85,7 @@ function MenuWindow(controller, checkin) {
 		bonomoController.getPlaces(checkin, function(result) {
 			controller.open(new PlacesWindow(controller, checkin, result).window);
 		});
-	})
+	});
 	
 	this.window = window;
 }

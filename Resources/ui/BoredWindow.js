@@ -2,8 +2,9 @@ function BoredWindow(controller) {
 	
 	var BonomoController = require('/controller/BonomoController');
 	var bonomoController = new BonomoController();
-	//var EventsWindow = require('EventsWindow');
 	var MenuWindow = require('MenuWindow');
+	var MyEventsWindow = require('MyEventsWindow');
+	var model = require('/model/Model');
 	
 	var window = Titanium.UI.createWindow({
 		title: 'How bored?',
@@ -21,11 +22,25 @@ function BoredWindow(controller) {
 	});
 	
 	var view1 = Titanium.UI.createView({layout:'vertical'});
-	view1.add(Titanium.UI.createImageView({
+	var barra = Titanium.UI.createView({
+		layout:'absolute',
+		width: '100%'
+	});
+	barra.add(Titanium.UI.createImageView({
 		backgroundImage: '../images/topbar.png',
 		width: '100%',
 		height: '49',
 	}));
+	var eventsBtn = Titanium.UI.createButton({
+		backgroundImage: '../images/events.png',
+		width: '60',
+		height: '26',
+		right: '5%',
+		enabled: model.getUsuarioRuby().hasOwnProperty('active_events')
+	});
+	barra.add(eventsBtn);
+	
+	view1.add(barra);
 	view1.add(Titanium.UI.createView({height:20}));
 	view1.add(Titanium.UI.createImageView({
 		backgroundImage: '../images/howbored.png',
@@ -59,7 +74,8 @@ function BoredWindow(controller) {
 		textAlign: 'center',
 		top: 10,
 		font: {
-			fontSize: 24
+			fontSize: 24,
+			fontFamily: 'take_out_the_garbage'
 		}
 	});
 	fondoGlobo.add(boredLevel);
@@ -79,8 +95,9 @@ function BoredWindow(controller) {
 		textAlign: 'center',
 		top: 8,
 		font: {
-			fontSize: 26,
-			fontWeight: 'bold'
+			fontSize: 30,
+			fontWeight: 'bold',
+			fontFamily: 'take_out_the_garbage'
 		}
 	});
 	var boredText1 = Titanium.UI.createLabel({
@@ -88,8 +105,9 @@ function BoredWindow(controller) {
 		color: '#97D1FD', 
 		textAlign: 'center',
 		font: {
-			fontSize: 15,
-			fontWeight: 'bold'
+			fontSize: 20,
+			fontWeight: 'bold',
+			fontFamily: 'take_out_the_garbage'
 		}
 	});
 	var boredText2 = Titanium.UI.createLabel({
@@ -97,8 +115,9 @@ function BoredWindow(controller) {
 		color: '#97D1FD', 
 		textAlign: 'center',
 		font: {
-			fontSize: 15,
-			fontWeight: 'bold'
+			fontSize: 20,
+			fontWeight: 'bold',
+			fontFamily: 'take_out_the_garbage'
 		}
 	});
 	var boredPanda = Titanium.UI.createImageView({
@@ -168,10 +187,11 @@ function BoredWindow(controller) {
 			bonomoController.createBoredomCheckin(checkin, function() {
 				controller.open(new MenuWindow(controller, checkin).window);
 			});
-			/*bonomoController.getPlaces(ll, function(result) {
-				controller.open(new EventsWindow(controller, result).window);
-			});*/
 		});
+	});
+	
+	eventsBtn.addEventListener('click', function(e) {
+		controller.open(new MyEventsWindow(controller).window);
 	});
 	
 	this.window = window;

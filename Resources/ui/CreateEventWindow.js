@@ -28,7 +28,10 @@ function CreateEventWindow(controller, checkin, place) {
 		borderColor: "black",
 		borderRadius: 5,
 		borderWidth:1,
-		font:{fontSize:16}
+		font: {
+			fontSize:16,
+			fontFamily: 'take_out_the_garbage'
+		}
 	});
 	
 	var createButton = Titanium.UI.createButton({
