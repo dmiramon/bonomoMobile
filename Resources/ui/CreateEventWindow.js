@@ -42,8 +42,8 @@ function CreateEventWindow(controller, checkin, place) {
 		eventoObject.description = textArea.value;
 		eventoObject.endTime = endTimePicker.value;
 		eventoObject.place = place;
-		bonomoController.createEvent(eventoObject, function() {
-			controller.open(new EventStatusWindow(controller, eventoObject).window);
+		bonomoController.createEvent(eventoObject, function(eventObjectResponse) {
+			controller.open(new EventStatusWindow(controller, eventObjectResponse).window);
 		});
 	});
 	
