@@ -17,7 +17,12 @@ function PlacesWindow(controller, checkin, places) {
 		height: '100%'
 	});
 	var label = Titanium.UI.createLabel({
-		text: 'Select one of these places'
+		text: 'Select one of these places',
+		color: '#000000',
+		font: {
+			fontSize: 18,
+			fontFamily: 'take_out_the_garbage'
+		}
 	})
 	var lista = Titanium.UI.createTableView({
 		width: '100%',
@@ -42,7 +47,7 @@ function PlacesWindow(controller, checkin, places) {
 			text: places[index].title,
 			color: '#000000',
 			font: {
-				fontSize: 14
+				fontSize: 15
 			}
 		}));
 		viewDatos.add(Titanium.UI.createLabel({
@@ -51,7 +56,7 @@ function PlacesWindow(controller, checkin, places) {
 			textAlign: 'left',
 			left: 3,
 			font: {
-				fontSize: 12
+				fontSize: 13
 			}
 		}));
 		tableRow.add(Titanium.UI.createImageView({

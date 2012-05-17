@@ -89,17 +89,7 @@ function StartWindow(controller) {
 		syncFB();
 	
 	function syncFB() {
-		/*var loading = Titanium.UI.createActivityIndicator({
-		bottom: 60, 
-	    height: 'auto',
-	    width: 'auto',
-	    font: {fontFamily:'Helvetica Neue', fontSize:15, fontWeight:'bold'},
-	    color: 'white',
-	    style: Titanium.UI.iPhone.ActivityIndicatorStyle.BIG,
-	    message: 'Loading...'
-	});*/
-
-		bonomoController.synchronizeFB(function() {
+		bonomoController.synchronizeFB(function(result) {
 			controller.open(new BoredWindow(controller).window);
 			win.close();
 		});
