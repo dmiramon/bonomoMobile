@@ -127,7 +127,7 @@ function EventsWindow(controller, checkin, events) {
 	else {
 		viewBase.add(Titanium.UI.createView({height: '25%'}))
 		viewBase.add(Titanium.UI.createLabel({
-			text: 'There no events nearby you. Want to create one?',
+			text: 'There are no events nearby you. Want to create one?',
 			color: '#000000',
 			width: 'auto',
 			height: 'auto',
