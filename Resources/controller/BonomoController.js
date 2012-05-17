@@ -100,12 +100,29 @@ function BonomoController() {
 	         Ti.API.debug(e.error);
 	    };
 		xhr.onload = function() {
-			callback();
+			var eventObject = JSON.parse(this.responseText);
+			callback(eventObject);
 		}
 		xhr.open("POST", SERVER_URL + "events/create_from_interface/" + Titanium.Facebook.getUid() +".json");
 		xhr.setRequestHeader("Content-Type","application/json; charset=utf-8");
 		xhr.send(JSON.stringify(post));
 	}
+	
+	this.showStatusEvent = function(eventoObject, callback){
+		var xhr = Titanium.Network.createHTTPClient();
+		
+		xhr.onerror = function(e) {
+	         Ti.API.debug(e.error);
+	    };
+		xhr.onload = function() {
+			var eventObjectResponse = JSON.parse(this.responseText);
+			callback(eventObjectResponse);
+		}
+		
+		xhr.open("GET", SERVER_URL + "events/" + eventoObject.id +".json");
+		xhr.setRequestHeader("Content-Type","application/json; charset=utf-8");
+		xhr.send();
+	} 
 	
 	/**
 	 * 
