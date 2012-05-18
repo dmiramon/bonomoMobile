@@ -10,16 +10,31 @@ function CreateEventWindow(controller, checkin, place) {
 		navBarHidden: true
 	});
 	
-	var view1 = Titanium.UI.createView({
+	var viewBase = Titanium.UI.createView({
 		layout: 'vertical',
-		backgroundImage: '../images/fondoconbarra.png',
+		backgroundImage: '../images/fondosinbarra.png',
+		width: '100%',
 		height: '100%'
 	});
+	viewBase.add(Titanium.UI.createImageView({
+		backgroundImage: '../images/topbar.png',
+		width: '100%',
+		height: '49',
+	}));
+	
 	var labelTitle = Titanium.UI.createLabel({
-		text: 'Do something at ' + place.title
+		text: 'Event at ' + place.title,
+		font: {
+			fontSize: 20,
+			fontFamily: 'take_out_the_garbage'
+		}
 	});
 	var labelPlans = Titanium.UI.createLabel({
-		text: 'What are your plans in 140 characters?'
+		text: 'What are your plans in 140 characters?',
+		font: {
+			fontSize: 18,
+			fontFamily: 'take_out_the_garbage'
+		}
 	});
 	var textArea = Ti.UI.createTextArea({
 		value: "",
@@ -73,13 +88,14 @@ function CreateEventWindow(controller, checkin, place) {
 		value: endValue
 	});
 	
-	view1.add(Titanium.UI.createView({height: 35}));
-	view1.add(labelTitle);
-	view1.add(labelPlans);
-	view1.add(textArea);
-	view1.add(endTimePicker);
-	view1.add(createButton);
-	window.add(view1);
+	viewBase.add(Titanium.UI.createView({height: 35}));
+	viewBase.add(labelTitle);
+	viewBase.add(Titanium.UI.createView({height: 35}));
+	viewBase.add(labelPlans);
+	viewBase.add(textArea);
+	viewBase.add(endTimePicker);
+	viewBase.add(createButton);
+	window.add(viewBase);
 	
 	this.window = window;
 }
