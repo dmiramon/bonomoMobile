@@ -14,7 +14,7 @@ function EventStatusWindow(controller, eventObject) {
 	
 	var viewBase = Titanium.UI.createView({
 		layout: 'vertical',
-		backgroundImage: '../images/fondoconbarra.png',
+		backgroundImage: '../images/fondosinbarra.png',
 		height: '100%'
 	});
 	viewBase.add(Titanium.UI.createImageView({
@@ -23,33 +23,63 @@ function EventStatusWindow(controller, eventObject) {
 		height: '49',
 	}));
 	
-	var labelTitle = Titanium.UI.createLabel({
-		text: 'Event at ' + eventObject.place.name
+	var viewWhere = Titanium.UI.createView({
+		layout: 'horizontal',
+		width: 'auto',
+		height: 'auto'
 	});
+	viewWhere.add(Titanium.UI.createLabel({
+		text: "WHERE ",
+		color: '#97D1FD',
+		font: {
+			fontSize: 16,
+			fontFamily: 'take_out_the_garbage'
+		}
+	}));
+	viewWhere.add(Titanium.UI.createView({width:'2%'}));
+	viewWhere.add(Titanium.UI.createLabel({
+		text: eventObject.place.name,
+		color: '#000000',
+		font: {
+			fontSize: 16
+		}
+	}));
 	
 	var labelDescription = Titanium.UI.createLabel({
-		text: eventObject.description
+		text: eventObject.description,
+		color: '#000000',
+		font: {
+			fontSize: 16
+		}
 	});
 	
 	var labelStarts = Titanium.UI.createLabel({
-		text: eventObject.start_time
+		text: 'From: ' + eventObject.start_time.split('T')[1].split('Z')[0],
+		color: '#000000',
+		font: {
+			fontSize: 16
+		}
 	});
 	
 	var labelEnds = Titanium.UI.createLabel({
-		text: eventObject.end_time
+		text: 'To: ' + eventObject.end_time.split('T')[0].split('Z')[0],
+		color: '#000000',
+		font: {
+			fontSize: 16
+		}
 	});
 	
 	var refreshButton = Titanium.UI.createButton({
 		title: "Refresh",
-		width: "20%",
-		height: "20%"
+		width: "95",
+		height: "75"
 	});
 	
 	var lista = Titanium.UI.createTableView({
 		width: '90%',
 		height: '40%',
-		bottom: 2,
-		top: 5,
+		bottom: '2%',
+		top: '2%',
 		right: 10
 	});
 	
@@ -69,7 +99,7 @@ function EventStatusWindow(controller, eventObject) {
 			text: eventObject.interactions[index].user_from.name + " -> " + eventObject.interactions[index].user_to.name,
 			color: '#000000',
 			font: {
-				fontSize: 14
+				fontSize: 16
 			}
 		}));
 		
@@ -89,7 +119,7 @@ function EventStatusWindow(controller, eventObject) {
 			textAlign: 'left',
 			left: 3,
 			font: {
-				fontSize: 12
+				fontSize: 16
 			}
 		}));
 		
@@ -141,7 +171,7 @@ function EventStatusWindow(controller, eventObject) {
 	});
 	
 	viewBase.add(Titanium.UI.createView({height: '2%'}));
-	viewBase.add(labelTitle);
+	viewBase.add(viewWhere);
 	viewBase.add(labelDescription);
 	viewBase.add(labelStarts);
 	viewBase.add(labelEnds);
@@ -150,7 +180,6 @@ function EventStatusWindow(controller, eventObject) {
 	window.add(viewBase);
 	
 	this.window = window;
-	
 }
 
 module.exports = EventStatusWindow;

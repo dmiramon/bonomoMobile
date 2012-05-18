@@ -13,9 +13,15 @@ function PlacesWindow(controller, checkin, places) {
 	
 	var viewBase = Titanium.UI.createView({
 		layout: 'vertical',
-		backgroundImage: '../images/fondoconbarra.png',
+		backgroundImage: '../images/fondosinbarra.png',
 		height: '100%'
 	});
+	viewBase.add(Titanium.UI.createImageView({
+		backgroundImage: '../images/topbar.png',
+		width: '100%',
+		height: '49',
+	}));
+	
 	var label = Titanium.UI.createLabel({
 		text: 'Select one of these places',
 		color: '#000000',
@@ -26,11 +32,10 @@ function PlacesWindow(controller, checkin, places) {
 	})
 	var lista = Titanium.UI.createTableView({
 		width: '100%',
-		height: '99%',
-		bottom: 2,
-		top: 5
+		height: '90%',
+		bottom: '2%',
+		top: '2%'
 	});
-	viewBase.add(Titanium.UI.createView({height: 35}));
 	viewBase.add(label);
 	viewBase.add(lista);
 	window.add(viewBase);
