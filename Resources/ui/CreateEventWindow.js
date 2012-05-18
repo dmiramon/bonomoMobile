@@ -24,6 +24,7 @@ function CreateEventWindow(controller, checkin, place) {
 	
 	var labelTitle = Titanium.UI.createLabel({
 		text: 'Event at ' + place.title,
+		color: '#000000',
 		font: {
 			fontSize: 20,
 			fontFamily: 'take_out_the_garbage'
@@ -31,6 +32,7 @@ function CreateEventWindow(controller, checkin, place) {
 	});
 	var labelPlans = Titanium.UI.createLabel({
 		text: 'What are your plans in 140 characters?',
+		color: '#000000',
 		font: {
 			fontSize: 18,
 			fontFamily: 'take_out_the_garbage'
@@ -39,7 +41,7 @@ function CreateEventWindow(controller, checkin, place) {
 	var textArea = Ti.UI.createTextArea({
 		value: "",
 		width: "80%",
-		height: "20%",
+		height: "10%",
 		borderColor: "black",
 		borderRadius: 5,
 		borderWidth:1,
@@ -51,8 +53,8 @@ function CreateEventWindow(controller, checkin, place) {
 	
 	var createButton = Titanium.UI.createButton({
 		title: "Create",
-		width: 150,
-		height: 150
+		width: 75,
+		height: 75
 	});
 	
 	createButton.addEventListener('click', function(e){
@@ -61,8 +63,9 @@ function CreateEventWindow(controller, checkin, place) {
 		eventoObject.endTime = endTimePicker.value;
 		eventoObject.place = place;
 		bonomoController.createEvent(eventoObject, function(eventObjectResponse) {
-			controller.open(new EventStatusWindow(controller, eventObjectResponse).window);
 			window.close();
+			controller.windowStack.pop();
+			controller.open(new EventStatusWindow(controller, eventObjectResponse).window);
 		});
 	});
 	
@@ -88,12 +91,14 @@ function CreateEventWindow(controller, checkin, place) {
 		value: endValue
 	});
 	
-	viewBase.add(Titanium.UI.createView({height: 35}));
+	viewBase.add(Titanium.UI.createView({height: '2%'}));
 	viewBase.add(labelTitle);
-	viewBase.add(Titanium.UI.createView({height: 35}));
+	viewBase.add(Titanium.UI.createView({height: '2%'}));
 	viewBase.add(labelPlans);
 	viewBase.add(textArea);
+	viewBase.add(Titanium.UI.createView({height: '2%'}));
 	viewBase.add(endTimePicker);
+	viewBase.add(Titanium.UI.createView({height: '2%'}));
 	viewBase.add(createButton);
 	window.add(viewBase);
 	

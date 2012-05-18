@@ -12,11 +12,16 @@ function EventStatusWindow(controller, eventObject) {
 		navBarHidden: true
 	});
 	
-	var view1 = Titanium.UI.createView({
+	var viewBase = Titanium.UI.createView({
 		layout: 'vertical',
 		backgroundImage: '../images/fondoconbarra.png',
 		height: '100%'
 	});
+	viewBase.add(Titanium.UI.createImageView({
+		backgroundImage: '../images/topbar.png',
+		width: '100%',
+		height: '49',
+	}));
 	
 	var labelTitle = Titanium.UI.createLabel({
 		text: 'Event at ' + eventObject.place.name
@@ -135,14 +140,14 @@ function EventStatusWindow(controller, eventObject) {
 		});
 	});
 	
-	view1.add(Titanium.UI.createView({height: 35}));
-	view1.add(labelTitle);
-	view1.add(labelDescription);
-	view1.add(labelStarts);
-	view1.add(labelEnds);
-	view1.add(lista);
-	view1.add(refreshButton);
-	window.add(view1);
+	viewBase.add(Titanium.UI.createView({height: '2%'}));
+	viewBase.add(labelTitle);
+	viewBase.add(labelDescription);
+	viewBase.add(labelStarts);
+	viewBase.add(labelEnds);
+	viewBase.add(lista);
+	viewBase.add(refreshButton);
+	window.add(viewBase);
 	
 	this.window = window;
 	
