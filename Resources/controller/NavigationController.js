@@ -25,7 +25,7 @@ function NavigationController() {
 	this.open = function(windowToOpen) {
 		//add the window to the stack of windows managed by the controller
 		this.windowStack.push(windowToOpen);
-		this.activityIndicator.show();
+		//this.activityIndicator.show();
 		
 		//grab a copy of the current nav controller for use in the callback
 		var that = this;

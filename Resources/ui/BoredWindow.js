@@ -174,6 +174,7 @@ function BoredWindow(controller) {
 	});
 	
 	sendButton.addEventListener('click', function(e) {
+		controller.activityIndicator.show();
 		var checkin = {};
 		Titanium.Geolocation.getCurrentPosition(function(ll) {
 			if (ll.error) {

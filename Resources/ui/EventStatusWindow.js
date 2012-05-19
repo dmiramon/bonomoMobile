@@ -25,7 +25,7 @@ function EventStatusWindow(controller, eventObject) {
 	
 	var viewWhere = Titanium.UI.createView({
 		layout: 'horizontal',
-		width: 'auto',
+		width: '100%',
 		height: 'auto'
 	});
 	viewWhere.add(Titanium.UI.createLabel({
