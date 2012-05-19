@@ -79,7 +79,7 @@ function CreateEventWindow(controller, checkin, place) {
 		bonomoController.createEvent(eventoObject, function(eventObjectResponse) {			
 			bonomoController.synchronizeFB(function(result) {
 				window.close();
-				controller.windowStack[controller.windowStack.length - 1].close();
+				//controller.windowStack[controller.windowStack.length - 1].close();
 				controller.open(new EventStatusWindow(controller, eventObjectResponse).window);
 			});			
 		});
