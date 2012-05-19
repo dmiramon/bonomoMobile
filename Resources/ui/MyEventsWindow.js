@@ -18,80 +18,96 @@ function MyEventsWindow(controller) {
 		backgroundImage: '../images/fondosinbarra.png',
 		height: '100%'
 	});
-	var lista = Titanium.UI.createTableView({
-		width: '100%',
-		height: '100%',
-		bottom: 5,
-		top: 5
-	});
 	
 	viewBase.add(Titanium.UI.createImageView({
 		backgroundImage: '../images/topbar.png',
 		width: '100%',
 		height: '49',
 	}));
-	viewBase.add(lista);
-	window.add(viewBase);
 	
-	var data = [];
-	var par = 0;
-	var events = model.getUsuarioRuby().active_events.mine.concat(model.getUsuarioRuby().active_events.theirs);
-	for (var index in events) {
-		var tableRow = Ti.UI.createTableViewRow({
-			layout: 'horizontal',
-			height: 'auto',
-			className: 'Event'
+	if (model.getUsuarioRuby().active_events.mine.length > 0 || model.getUsuarioRuby().active_events.theirs.length > 0) {
+		var lista = Titanium.UI.createTableView({
+			width: '100%',
+			height: '100%',
+			bottom: 5,
+			top: 5
 		});
-		var viewLabels = Titanium.UI.createView({layout: 'vertical'});
-		viewLabels.add(Titanium.UI.createLabel({
-			text: "WHERE ",
-			color: '#F8B526',
-			left: '0',
-			textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+		viewBase.add(lista);
+		
+		var data = [];
+		var par = 0;
+		var events = model.getUsuarioRuby().active_events.mine.concat(model.getUsuarioRuby().active_events.theirs);
+		for (var index in events) {
+			var tableRow = Ti.UI.createTableViewRow({
+				layout: 'horizontal',
+				height: 'auto',
+				className: 'Event'
+			});
+			var viewLabels = Titanium.UI.createView({layout: 'vertical'});
+			viewLabels.add(Titanium.UI.createLabel({
+				text: "WHERE ",
+				color: '#F8B526',
+				left: '0',
+				textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+				font: {
+					fontSize: 15,
+					fontFamily: 'take_out_the_garbage'
+				}
+			}));
+			var viewDatos = Titanium.UI.createView({layout: 'vertical'});
+			viewDatos.add(Titanium.UI.createLabel({
+				text: events[index].place.name,
+				color: '#000000',
+				textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+				left: '0',
+				font: {
+					fontSize: size
+				}
+			}));
+			
+			var moreBtn = Titanium.UI.createButton({
+				backgroundImage: '../images/moinfo.png',
+				width: '61',
+				height: '26',
+				left: '10%',
+				event: events[index]
+			});
+			moreBtn.addEventListener('click', function(event) {
+				bonomoController.showStatusEvent(event.source.event, function(result) {
+					controller.open(new EventStatusWindow(controller, result).window);
+				});
+			});
+			
+			if (par % 2 != 0) {
+				tableRow.setBackgroundImage('../images/fondolista.png');
+			}
+			
+			tableRow.add(Titanium.UI.createView({width:'2%'}));
+			tableRow.add(viewLabels);
+			tableRow.add(Titanium.UI.createView({width:'2%'}));
+			tableRow.add(viewDatos);
+			tableRow.add(Titanium.UI.createView({width:'5%'}));
+			tableRow.add(moreBtn);
+			data.push(tableRow);
+			par++;
+		}
+	
+		lista.data = data;
+	} else {
+		viewBase.add(Titanium.UI.createView({height: '25%'}));
+		viewBase.add(Titanium.UI.createLabel({
+			text: 'You are not participating in any event. Please go back to create or find one!',
+			color: '#000000',
+			width: 'auto',
+			height: 'auto',
 			font: {
-				fontSize: 15,
+				fontSize: 18,
 				fontFamily: 'take_out_the_garbage'
 			}
 		}));
-		var viewDatos = Titanium.UI.createView({layout: 'vertical'});
-		viewDatos.add(Titanium.UI.createLabel({
-			text: events[index].place.name,
-			color: '#000000',
-			textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
-			left: '0',
-			font: {
-				fontSize: size
-			}
-		}));
-		
-		var moreBtn = Titanium.UI.createButton({
-			backgroundImage: '../images/moinfo.png',
-			width: '61',
-			height: '26',
-			left: '10%',
-			event: events[index]
-		});
-		moreBtn.addEventListener('click', function(event) {
-			bonomoController.showStatusEvent(event.source.event, function(result) {
-				controller.open(new EventStatusWindow(controller, event.source.event).window);
-			});
-		});
-		
-		if (par % 2 != 0) {
-			tableRow.setBackgroundImage('../images/fondolista.png');
-		}
-		
-		tableRow.add(Titanium.UI.createView({width:'2%'}));
-		tableRow.add(viewLabels);
-		tableRow.add(Titanium.UI.createView({width:'2%'}));
-		tableRow.add(viewDatos);
-		tableRow.add(Titanium.UI.createView({width:'5%'}));
-		tableRow.add(moreBtn);
-		data.push(tableRow);
-		par++;
 	}
-
-	lista.data = data;
+	
+	window.add(viewBase);
 	
 	/*lista.addEventListener('click', function(event) {
 		bonomoController.interact(events[event.index].owner_id, events[event.index].id, 1, function() {

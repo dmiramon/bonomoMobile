@@ -2,6 +2,8 @@ function MoInfoWindow(controller, event) {
 	
 	var BonomoController = require('/controller/BonomoController');
 	var bonomoController = new BonomoController();
+	var EventStatusWindow = require('EventStatusWindow');
+	var BoredWindow = require('BoredWindow');
 	
 	var size = 14;
 	var owner;
@@ -157,7 +159,12 @@ function MoInfoWindow(controller, event) {
 			
 			if(e.index == 0){				
 				bonomoController.interact(owner.id, event.id, 1, function(result) {
-					// TODO: Mandar a la pantalla de estatus de evento?							
+					bonomoController.synchronizeFB(function(result) {
+						bonomoController.showStatusEvent(event, function(eventObjectResponse){
+							window.close();
+							controller.open(new EventStatusWindow(controller, eventObjectResponse).window);
+						});		
+					});	
 				});
 			}
 		});
