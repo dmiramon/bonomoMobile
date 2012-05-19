@@ -136,24 +136,25 @@ function EventStatusWindow(controller, eventObject) {
 			var confirmButton = Titanium.UI.createButton({
 				title: "Confirm"
 			});
+			var dialog = Titanium.UI.createOptionDialog({
+		    	options:['Confirm', 'Cancel'],
+		    	title:'Confirm only if you are already waiting at the event.'
+			});
 			
-			confirmButton.addEventListener('click', function(){
-				var dialog = Titanium.UI.createOptionDialog({
-			    	options:['Confirm', 'Cancel'],
-			    	title:'Confirm only if you are already waiting at the event.'
-				});
-				dialog.show();
-				dialog.addEventListener('click', function(e){
+			dialog.addEventListener('click', function(e){
 					
-					if(e.index == 0){						
-						bonomoController.interact(eventObject.interactions[index].user_from.id, eventObject.id, 2, function(interactObject) {
-							bonomoController.showStatusEvent(eventObject, function(eventObjectResponse){
-								controller.open(new EventStatusWindow(controller, eventObjectResponse).window);
-							});							
+				if(e.index == 0){						
+					bonomoController.interact(eventObject.interactions[index].user_from.id, eventObject.id, 2, function(interactObject) {
+						bonomoController.showStatusEvent(eventObject, function(eventObjectResponse){
+							window.close();
+							controller.open(new EventStatusWindow(controller, eventObjectResponse).window);
 						});							
-					}
-				});
+					});							
+				}
+			});
 				
+			confirmButton.addEventListener('click', function(){
+				dialog.show();
 			});
 			
 			tableRow.add(confirmButton);
