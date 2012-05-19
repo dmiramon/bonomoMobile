@@ -56,8 +56,8 @@ function BonomoController() {
 			places = [];
 			var data = JSON.parse(this.responseText);
 			var foursquareData = JSON.parse(this.responseText).response.venues;
-			var cat = [];
 			for (var index in foursquareData) {
+				var cat = [];
 				for (var catIdx in foursquareData[index].categories) {
 					cat.push(foursquareData[index].categories[catIdx]);
 				}

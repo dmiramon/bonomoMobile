@@ -25,7 +25,7 @@ function CreateEventWindow(controller, checkin, place) {
 	
 	var viewWhere = Titanium.UI.createView({
 		layout: 'horizontal',
-		width: '100%',
+		width: 'auto',
 		height: 'auto'
 	});
 	viewWhere.add(Titanium.UI.createLabel({
@@ -70,7 +70,8 @@ function CreateEventWindow(controller, checkin, place) {
 		height: 75
 	});
 	
-	createButton.addEventListener('click', function(e){
+	createButton.addEventListener('click', function(e) {
+		controller.activityIndicator.show();
 		eventoObject = {};
 		eventoObject.description = textArea.value;
 		eventoObject.endTime = endTimePicker.value;

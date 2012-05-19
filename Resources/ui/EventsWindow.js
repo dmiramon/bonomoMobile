@@ -142,6 +142,7 @@ function EventsWindow(controller, checkin, events) {
 			height: '81'
 		});
 		creaBtn.addEventListener('click', function(e) {
+			controller.activityIndicator.show();
 			bonomoController.getPlaces(checkin, function(result) {
 				controller.open(new PlacesWindow(controller, checkin, result).window);
 				window.close();

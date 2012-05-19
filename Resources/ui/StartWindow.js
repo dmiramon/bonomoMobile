@@ -37,11 +37,11 @@ function StartWindow(controller) {
 	var hasSession = Titanium.Facebook.getLoggedIn();
 	
 	var win = Titanium.UI.createWindow({
-			layout: 'vertical',
-			backgroundColor: '#000000',
-			fullscreen: true,
-			navBarHidden: true
-		});
+		layout: 'vertical',
+		backgroundColor: '#000000',
+		fullscreen: true,
+		navBarHidden: true
+	});
 	
 	var view1 = Titanium.UI.createView({
 		layout: 'vertical',
@@ -62,7 +62,8 @@ function StartWindow(controller) {
 		height: 28,
 		visible: !hasSession
 	});
-	loginBtn.addEventListener('click', function(e){
+	loginBtn.addEventListener('click', function(e) {
+		controller.activityIndicator.show();
 		fbController.login(function() {
 			syncFB();
 		});
@@ -85,8 +86,10 @@ function StartWindow(controller) {
 		
 	this.window = win;
 	
-	if (hasSession)
+	if (hasSession) {
+		controller.activityIndicator.show();
 		syncFB();
+	}
 	
 	function syncFB() {
 		bonomoController.synchronizeFB(function(result) {

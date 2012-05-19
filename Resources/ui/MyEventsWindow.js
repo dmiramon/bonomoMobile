@@ -73,6 +73,7 @@ function MyEventsWindow(controller) {
 				event: events[index]
 			});
 			moreBtn.addEventListener('click', function(event) {
+				controller.activityIndicator.show();
 				bonomoController.showStatusEvent(event.source.event, function(result) {
 					controller.open(new EventStatusWindow(controller, result).window);
 				});

@@ -76,12 +76,14 @@ function MenuWindow(controller, checkin) {
 	window.add(viewBase);
 	
 	buscaBtn.addEventListener('click', function(e) {
+		controller.activityIndicator.show();
 		bonomoController.getEvents(function(result) {
 			controller.open(new EventsWindow(controller, checkin, result).window);
 		});
 	});
 	
 	creaBtn.addEventListener('click', function(e) {
+		controller.activityIndicator.show();
 		bonomoController.getPlaces(checkin, function(result) {
 			controller.open(new PlacesWindow(controller, checkin, result).window);
 		});

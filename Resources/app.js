@@ -19,7 +19,7 @@ var NavigationController = require('controller/NavigationController'),
 var navController = new NavigationController();
 var start = new StartWindow(navController);
 start.window.addEventListener('open', function(event) {
-	navController.activityIndicator.show();
+	//navController.activityIndicator.show();
 });
 start.window.open();
 

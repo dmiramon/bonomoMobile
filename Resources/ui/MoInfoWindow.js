@@ -155,9 +155,9 @@ function MoInfoWindow(controller, event) {
 	    	title:'Are you sure you want to attend that event?'
 		});
 		dialog.show();
-		dialog.addEventListener('click', function(e){
-			
-			if(e.index == 0){				
+		dialog.addEventListener('click', function(e) {
+			if(e.index == 0) {
+				controller.activityIndicator.show();			
 				bonomoController.interact(owner.id, event.id, 1, function(result) {
 					bonomoController.synchronizeFB(function(result) {
 						bonomoController.showStatusEvent(event, function(eventObjectResponse){
