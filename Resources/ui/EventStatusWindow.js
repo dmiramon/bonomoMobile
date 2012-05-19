@@ -166,6 +166,7 @@ function EventStatusWindow(controller, eventObject) {
 	refreshButton.addEventListener('click', function() {
 		controller.activityIndicator.show();
 		bonomoController.showStatusEvent(eventObject, function(eventResponseObject) {
+			window.close();
 			controller.open(new EventStatusWindow(controller, eventResponseObject).window);
 		});
 	});
