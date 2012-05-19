@@ -90,9 +90,11 @@ function StartWindow(controller) {
 	
 	function syncFB() {
 		bonomoController.synchronizeFB(function(result) {
+			controller.activityIndicator.hide();
 			controller.open(new BoredWindow(controller).window);
 			win.close();
 		});
+		//controller.activityIndicator.show();
 	}
 }
 

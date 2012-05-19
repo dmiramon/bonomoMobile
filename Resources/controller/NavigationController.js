@@ -6,16 +6,34 @@ function NavigationController() {
 	this.windowStack = [];
 	
 	/**
+	 *
+	 */
+	this.activityIndicator = Ti.UI.createActivityIndicator({
+		color: 'green',
+	  	font: {fontFamily:'Helvetica Neue', fontSize:26, fontWeight:'bold'},
+		message: 'Loading...',
+		style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK,
+		top:10,
+		left:10,
+		height:'auto',
+		width:'auto'
+	});
+	
+	/**
 	 * Abre una ventana nueva
 	 */
 	this.open = function(windowToOpen) {
 		//add the window to the stack of windows managed by the controller
 		this.windowStack.push(windowToOpen);
+		this.activityIndicator.show();
 		
 		//grab a copy of the current nav controller for use in the callback
 		var that = this;
 		windowToOpen.addEventListener('close', function() {
 			that.windowStack.pop();
+		});
+		windowToOpen.addEventListener('open', function() {
+			that.activityIndicator.hide();
 		});
 		
 		//hack - setting this property ensures the window is "heavyweight" (associated with an Android activity)
