@@ -36,7 +36,6 @@ function BoredWindow(controller) {
 		width: '60',
 		height: '26',
 		right: '5%',
-		enabled: model.getUsuarioRuby().hasOwnProperty('active_events')
 	});
 	barra.add(eventsBtn);
 	

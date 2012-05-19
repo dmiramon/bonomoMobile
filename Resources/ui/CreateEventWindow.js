@@ -2,6 +2,7 @@ function CreateEventWindow(controller, checkin, place) {
 	var BonomoController = require('/controller/BonomoController');
 	var bonomoController = new BonomoController();
 	var EventStatusWindow = require('EventStatusWindow');
+	var BoredWindow = require('BoredWindow');
 	
 	var window = Titanium.UI.createWindow({
 		layout: 'absolute',
@@ -74,10 +75,12 @@ function CreateEventWindow(controller, checkin, place) {
 		eventoObject.description = textArea.value;
 		eventoObject.endTime = endTimePicker.value;
 		eventoObject.place = place;
-		bonomoController.createEvent(eventoObject, function(eventObjectResponse) {
-			window.close();
-			controller.windowStack[controller.windowStack.length - 1].close();
-			controller.open(new EventStatusWindow(controller, eventObjectResponse).window);
+		bonomoController.createEvent(eventoObject, function(eventObjectResponse) {			
+			bonomoController.synchronizeFB(function(result) {
+				window.close();
+				controller.windowStack[controller.windowStack.length - 1].close();
+				controller.open(new EventStatusWindow(controller, eventObjectResponse).window);
+			});			
 		});
 	});
 	

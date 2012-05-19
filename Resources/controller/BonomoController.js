@@ -165,8 +165,7 @@ function BonomoController() {
 		xhr.open("POST", SERVER_URL + "interactions.json");
 		xhr.setRequestHeader("Content-Type","application/json; charset=utf-8");
 		xhr.send(JSON.stringify(post));
-	}
-	
+	}	
 }
 
 module.exports = BonomoController;
