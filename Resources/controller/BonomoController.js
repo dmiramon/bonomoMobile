@@ -56,17 +56,23 @@ function BonomoController() {
 			places = [];
 			var data = JSON.parse(this.responseText);
 			var foursquareData = JSON.parse(this.responseText).response.venues;
+			var cat = '';
+			var img = '';
+			var id = '';
 			for (var index in foursquareData) {
-				var cat = [];
 				for (var catIdx in foursquareData[index].categories) {
-					cat.push(foursquareData[index].categories[catIdx]);
+					if (catIdx == 0 || catIdx == '0') {
+						cat = foursquareData[index].categories[catIdx].name;
+						id = foursquareData[index].categories[catIdx].id;
+						img = foursquareData[index].categories[catIdx].icon.prefix + '44.png';
+					}
 				}
 				places.push({
 					"title": foursquareData[index].name,
 					"color": "#000000", 
 					"distancia": foursquareData[index].location.distance, 
-					"categoria": cat[0].name,
-					"imagen": cat[0].icon.prefix + '44.png',
+					"categoria": cat,
+					"imagen": img,
 					"longitude": foursquareData[index].location.lng,
 					"latitude": foursquareData[index].location.lat,
 					// NECESARIOS PARA EL SERVICIO
@@ -77,8 +83,8 @@ function BonomoController() {
 					"name": foursquareData[index].name,
 					"id": foursquareData[index].id,
 					"categories":[{
-						"name": cat[0].name,
-						"id": cat[0].id
+						"name": cat,
+						"id": id
 					}]
 				});
 			}
