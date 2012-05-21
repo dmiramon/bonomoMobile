@@ -2,15 +2,15 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <deployment-targets>
         <target device="mobileweb">false</target>
-        <target device="iphone">true</target>
-        <target device="ipad">true</target>
+        <target device="iphone">false</target>
+        <target device="ipad">false</target>
         <target device="android">true</target>
-        <target device="blackberry">true</target>
+        <target device="blackberry">false</target>
     </deployment-targets>
-    <sdk-version>2.0.1.GA2</sdk-version>
+    <sdk-version>1.8.2</sdk-version>
     <id>com.bonomo</id>
-    <name>bonomoMobile</name>
-    <version>1.1</version>
+    <name>Bonomo2</name>
+    <version>1.0</version>
     <publisher>Diego</publisher>
     <url>http://</url>
     <description>not specified</description>
@@ -36,10 +36,10 @@
         </orientations>
     </iphone>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <tool-api-level>8</tool-api-level>
-        <manifest android:installLocation="preferExternal">
-            <uses-sdk android:minSdkVersion="7"/>
-        </manifest>
+    	<tool-api-level>8</tool-api-level>
+    	<manifest android:installLocation="auto">
+       		<uses-sdk android:minSdkVersion="7" />
+    	</manifest>
     </android>
     <modules/>
 </ti:app>
