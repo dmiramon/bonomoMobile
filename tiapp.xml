@@ -9,8 +9,8 @@
     </deployment-targets>
     <sdk-version>1.8.2</sdk-version>
     <id>com.bonomo</id>
-    <name>Bonomo2</name>
-    <version>1.0</version>
+    <name>bonomo</name>
+    <version>1.02</version>
     <publisher>Diego</publisher>
     <url>http://</url>
     <description>not specified</description>
