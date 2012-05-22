@@ -65,6 +65,7 @@ function StartWindow(controller) {
 	loginBtn.addEventListener('click', function(e) {
 		controller.activityIndicator.show();
 		fbController.login(function() {
+			loginBtn.visible = false;
 			syncFB();
 		});
 	});
@@ -92,6 +93,7 @@ function StartWindow(controller) {
 	
 	function syncFB() {
 		bonomoController.synchronizeFB(function(result) {
+			controller.activityIndicator.hide();
 			controller.open(new BoredWindow(controller).window);
 			win.close();
 		});

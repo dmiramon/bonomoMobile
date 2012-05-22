@@ -103,7 +103,7 @@ function EventsWindow(controller, checkin, events) {
 				tableRow.setBackgroundImage('../images/fondolista.png');
 			}
 			
-			tableRow.add(Titanium.UI.createView({width:'5'}));
+			tableRow.add(Titanium.UI.createView({width:'2%'}));
 			tableRow.add(Titanium.UI.createImageView({
 				image: owner.thumbnail,
 				width: 50,

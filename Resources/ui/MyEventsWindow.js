@@ -55,9 +55,26 @@ function MyEventsWindow(controller) {
 					fontFamily: 'take_out_the_garbage'
 				}
 			}));
+			viewLabels.add(Titanium.UI.createLabel({
+				text: "WHO ",
+				color: '#97D1FD',
+				textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+				left: '3%',
+				font: {
+					fontSize: sizeWithFont,
+					fontFamily: 'take_out_the_garbage'
+				}
+			}));
 			var viewDatos = Titanium.UI.createView({layout: 'vertical'});
 			viewDatos.add(Titanium.UI.createLabel({
 				text: events[index].place.name,
+				color: '#000000',
+				font: {
+					fontSize: size
+				}
+			}));
+			viewDatos.add(Titanium.UI.createLabel({
+				text: events[index].owner.name,
 				color: '#000000',
 				font: {
 					fontSize: size
@@ -82,6 +99,12 @@ function MyEventsWindow(controller) {
 				tableRow.setBackgroundImage('../images/fondolista.png');
 			}
 			
+			tableRow.add(Titanium.UI.createView({width:'2%'}));
+			tableRow.add(Titanium.UI.createImageView({
+				image: events[index].owner.thumbnail,
+				width: 50,
+				height: 50
+			}));
 			tableRow.add(Titanium.UI.createView({width:'2%'}));
 			tableRow.add(viewLabels);
 			tableRow.add(Titanium.UI.createView({width:'2%'}));
