@@ -122,7 +122,7 @@ function EventsWindow(controller, checkin, events) {
 		lista.data = data;
 		lista.addEventListener('click', function(event) {
 			controller.activityIndicator.show();
-			controller.open(new EventStatusWindow(controller, result).window);
+			controller.open(new MoInfoWindow(controller, events[event.index]).window);
 		});
 		
 		viewBase.add(lista);
