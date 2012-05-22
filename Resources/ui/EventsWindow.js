@@ -4,6 +4,7 @@ function EventsWindow(controller, checkin, events) {
 	var bonomoController = new BonomoController();
 	var MoInfoWindow = require('MoInfoWindow');
 	var PlacesWindow = require('PlacesWindow');
+	var EventStatusWindow = require('EventStatusWindow');
 	
 	var size = 16;
 	var sizeWithFont = 18;
