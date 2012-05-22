@@ -87,17 +87,14 @@ function StartWindow(controller) {
 	this.window = win;
 	
 	if (hasSession) {
-		controller.activityIndicator.show();
 		syncFB();
 	}
 	
 	function syncFB() {
 		bonomoController.synchronizeFB(function(result) {
-			controller.activityIndicator.hide();
 			controller.open(new BoredWindow(controller).window);
 			win.close();
 		});
-		//controller.activityIndicator.show();
 	}
 }
 

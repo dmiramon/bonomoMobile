@@ -1,7 +1,6 @@
 function EventStatusWindow(controller, eventObject) {
 	var BonomoController = require('/controller/BonomoController');
 	var bonomoController = new BonomoController();
-	var EventStatusWindow = require('EventStatusWindow');
 	var model = require('/model/Model');
 	
 	var window = Titanium.UI.createWindow({
@@ -166,9 +165,9 @@ function EventStatusWindow(controller, eventObject) {
 	
 	refreshButton.addEventListener('click', function() {
 		controller.activityIndicator.show();
-		bonomoController.showStatusEvent(eventObject, function(eventResponseObject) {
-			window.close();
+		bonomoController.showStatusEvent(eventObject, function(eventResponseObject) {			
 			controller.open(new EventStatusWindow(controller, eventResponseObject).window);
+			window.close();
 		});
 	});
 	
