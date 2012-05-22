@@ -86,9 +86,9 @@ function EventStatusWindow(controller, eventObject) {
 		}
 	}));
 	date_start = new Date(eventObject.start_time);
+	date_start_min = (date_start.getMinutes()<=9?'0'+date_start.getMinutes():date_start.getMinutes());
 	viewStarts.add(Titanium.UI.createLabel({
-		text: date_start.getHours() + ":" + date_start.getMinutes(),
-		//text: eventObject.start_time.split('T')[1].split('Z')[0].slice(0, 5),
+		text: date_start.getHours() + ":" + date_start_min,
 		color: '#000000',
 		font: {
 			fontSize: size
@@ -110,9 +110,9 @@ function EventStatusWindow(controller, eventObject) {
 		}
 	}));
 	date_end = new Date(eventObject.end_time);
+	date_end_min = (date_end.getMinutes()<=9?'0'+date_end.getMinutes():date_end.getMinutes());
 	viewEnds.add(Titanium.UI.createLabel({
-		text: date_end.getHours() + ":" + date_end.getMinutes(),
-		//text: eventObject.end_time.split('T')[1].split('Z')[0].slice(0, 5),
+		text: date_end.getHours() + ":" + date_end_min,
 		color: '#000000',
 		font: {
 			fontSize: size
@@ -186,13 +186,12 @@ function EventStatusWindow(controller, eventObject) {
 			});
 			
 			dialog.addEventListener('click', function(e){
-					
 				if(e.index == 0){						
 					bonomoController.interact(eventObject.interactions[index].user_from.id, eventObject.id, 2, function(interactObject) {
 						bonomoController.showStatusEvent(eventObject, function(eventObjectResponse){
 							refreshList(eventObjectResponse);
-						});							
-					});							
+						});
+					});
 				}
 			});
 				
@@ -240,7 +239,6 @@ function EventStatusWindow(controller, eventObject) {
 	this.window = window;
 	
 	var refreshList = function(newData) {
-		//refreshList(eventObjectResponse)
 		var data = [];
 		for (var index in newData.interactions) {
 			if (newData.interactions[index].type_id == 3){
@@ -281,7 +279,7 @@ function EventStatusWindow(controller, eventObject) {
 				}
 			}));
 			
-			if(model.getUsuarioRuby().id == eventObject.owner.id && eventObject.interactions[index].type_id == 1) {
+			if(model.getUsuarioRuby().id == newData.owner.id && newData.interactions[index].type_id == 1) {
 			
 				var confirmButton = Titanium.UI.createButton({
 					title: "Confirm",
@@ -296,8 +294,8 @@ function EventStatusWindow(controller, eventObject) {
 				dialog.addEventListener('click', function(e){
 						
 					if(e.index == 0){						
-						bonomoController.interact(eventObject.interactions[index].user_from.id, eventObject.id, 2, function(interactObject) {
-							bonomoController.showStatusEvent(eventObject, function(eventObjectResponse){
+						bonomoController.interact(newData.interactions[index].user_from.id, newData.id, 2, function(interactObject) {
+							bonomoController.showStatusEvent(newData, function(eventObjectResponse){
 								refreshList(eventObjectResponse);
 							});							
 						});							
@@ -312,7 +310,7 @@ function EventStatusWindow(controller, eventObject) {
 			}
 			
 			tableRow.add(Titanium.UI.createImageView( {
-				image: eventObject.interactions[index].user_from.thumbnail,
+				image: newData.interactions[index].user_from.thumbnail,
 				width: 50,
 				height: 50,
 				left: '3%'
@@ -322,6 +320,7 @@ function EventStatusWindow(controller, eventObject) {
 			data.push(tableRow);
 		}
 		controller.activityIndicator.hide();
+		lista.data = [];
 		lista.data = data;
 	}
 }
