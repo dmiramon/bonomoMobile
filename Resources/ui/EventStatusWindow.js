@@ -85,8 +85,10 @@ function EventStatusWindow(controller, eventObject) {
 			fontFamily: 'take_out_the_garbage'
 		}
 	}));
+	date_start = new Date(eventObject.start_time);
 	viewStarts.add(Titanium.UI.createLabel({
-		text: eventObject.start_time.split('T')[1].split('Z')[0].slice(0, 5),
+		text: date_start.getHours() + ":" + date_start.getMinutes(),
+		//text: eventObject.start_time.split('T')[1].split('Z')[0].slice(0, 5),
 		color: '#000000',
 		font: {
 			fontSize: size
@@ -107,8 +109,10 @@ function EventStatusWindow(controller, eventObject) {
 			fontFamily: 'take_out_the_garbage'
 		}
 	}));
+	date_end = new Date(eventObject.end_time);
 	viewEnds.add(Titanium.UI.createLabel({
-		text: eventObject.end_time.split('T')[1].split('Z')[0].slice(0, 5),
+		text: date_end.getHours() + ":" + date_end.getMinutes(),
+		//text: eventObject.end_time.split('T')[1].split('Z')[0].slice(0, 5),
 		color: '#000000',
 		font: {
 			fontSize: size
