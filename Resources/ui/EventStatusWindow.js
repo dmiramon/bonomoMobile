@@ -169,19 +169,12 @@ function EventStatusWindow(controller, eventObject) {
 			}
 		}));
 		
-		tableRow.add(Titanium.UI.createImageView({
-			image: eventObject.interactions[index].user_from.thumbnail,
-			width: 44,
-			height: 44
-		}));
-		
-		tableRow.add(Titanium.UI.createView({width:5}));
-		tableRow.add(viewDatos);
-		
 		if(model.getUsuarioRuby().id == eventObject.owner.id && eventObject.interactions[index].type_id == 1){
 			
 			var confirmButton = Titanium.UI.createButton({
-				title: "Confirm"
+				title: "Confirm",
+				width: '90',
+				height: '39'
 			});
 			var dialog = Titanium.UI.createOptionDialog({
 		    	options:['Confirm', 'Cancel'],
@@ -203,8 +196,17 @@ function EventStatusWindow(controller, eventObject) {
 				dialog.show();
 			});
 			
-			tableRow.add(confirmButton);
+			viewDatos.add(confirmButton);
 		}
+		
+		tableRow.add(Titanium.UI.createImageView({
+			image: eventObject.interactions[index].user_from.thumbnail,
+			width: 50,
+			height: 50,
+			left: '3%'
+		}));
+		tableRow.add(Titanium.UI.createView({width:'2%'}));
+		tableRow.add(viewDatos);
 		data.push(tableRow);
 	}
 

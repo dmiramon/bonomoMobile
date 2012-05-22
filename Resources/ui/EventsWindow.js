@@ -4,7 +4,6 @@ function EventsWindow(controller, checkin, events) {
 	var bonomoController = new BonomoController();
 	var MoInfoWindow = require('MoInfoWindow');
 	var PlacesWindow = require('PlacesWindow');
-	var EventStatusWindow = require('EventStatusWindow');
 	
 	var size = 16;
 	var sizeWithFont = 18;
@@ -123,7 +122,7 @@ function EventsWindow(controller, checkin, events) {
 		lista.data = data;
 		lista.addEventListener('click', function(event) {
 			controller.activityIndicator.show();
-			controller.open(new EventStatusWindow(controller, result).window);
+			controller.open(new MoInfoWindow(controller, events[event.index]).window);
 		});
 		
 		viewBase.add(lista);
