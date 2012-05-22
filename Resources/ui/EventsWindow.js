@@ -5,7 +5,9 @@ function EventsWindow(controller, checkin, events) {
 	var MoInfoWindow = require('MoInfoWindow');
 	var PlacesWindow = require('PlacesWindow');
 	
-	var size = 13;
+	var size = 16;
+	var sizeWithFont = 18;
+	
 	var window = Titanium.UI.createWindow({
 		layout: 'absolute',
 		backgroundColor: '#FFFFFF',
@@ -21,8 +23,8 @@ function EventsWindow(controller, checkin, events) {
 	var lista = Titanium.UI.createTableView({
 		width: '100%',
 		height: '100%',
-		bottom: 5,
-		top: 5
+		bottom: '2%',
+		top: '2%'
 	});
 	
 	viewBase.add(Titanium.UI.createImageView({
@@ -52,10 +54,10 @@ function EventsWindow(controller, checkin, events) {
 			viewLabels.add(Titanium.UI.createLabel({
 				text: "WHERE ",
 				color: '#F8B526',
-				left: '0',
+				left: '3%',
 				textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 				font: {
-					fontSize: 15,
+					fontSize: sizeWithFont,
 					fontFamily: 'take_out_the_garbage'
 				}
 			}));
@@ -63,9 +65,9 @@ function EventsWindow(controller, checkin, events) {
 				text: "WHO ",
 				color: '#97D1FD',
 				textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
-				left: '0',
+				left: '3%',
 				font: {
-					fontSize: 15,
+					fontSize: sizeWithFont,
 					fontFamily: 'take_out_the_garbage'
 				}
 			}));
@@ -73,8 +75,6 @@ function EventsWindow(controller, checkin, events) {
 			viewDatos.add(Titanium.UI.createLabel({
 				text: events[index].place.name,
 				color: '#000000',
-				textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
-				left: '0',
 				font: {
 					fontSize: size
 				}
@@ -82,14 +82,12 @@ function EventsWindow(controller, checkin, events) {
 			viewDatos.add(Titanium.UI.createLabel({
 				text: owner.name,
 				color: '#000000',
-				textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
-				left: '0',
 				font: {
 					fontSize: size
 				}
 			}));
 			
-			var moreBtn = Titanium.UI.createButton({
+			/*var moreBtn = Titanium.UI.createButton({
 				backgroundImage: '../images/moinfo.png',
 				width: '61',
 				height: '26',
@@ -99,7 +97,7 @@ function EventsWindow(controller, checkin, events) {
 			});
 			moreBtn.addEventListener('click', function(event) {
 				controller.open(new MoInfoWindow(controller, event.source.event).window);
-			});
+			});*/
 			
 			if (par % 2 != 0) {
 				tableRow.setBackgroundImage('../images/fondolista.png');
@@ -111,17 +109,22 @@ function EventsWindow(controller, checkin, events) {
 				width: 50,
 				height: 50
 			}));
-			tableRow.add(Titanium.UI.createView({width:'5'}));
+			tableRow.add(Titanium.UI.createView({width:'2%'}));
 			tableRow.add(viewLabels);
-			tableRow.add(Titanium.UI.createView({width:'5'}));
+			tableRow.add(Titanium.UI.createView({width:'2%'}));
 			tableRow.add(viewDatos);
-			tableRow.add(Titanium.UI.createView({width:'15'}));
-			tableRow.add(moreBtn);
+			//tableRow.add(Titanium.UI.createView({width:'15'}));
+			//tableRow.add(moreBtn);
 			data.push(tableRow);
 			par++;
 		}
 	
 		lista.data = data;
+		lista.addEventListener('click', function(event) {
+			controller.activityIndicator.show();
+			controller.open(new EventStatusWindow(controller, result).window);
+		});
+		
 		viewBase.add(lista);
 	}
 	else {
@@ -131,8 +134,10 @@ function EventsWindow(controller, checkin, events) {
 			color: '#000000',
 			width: 'auto',
 			height: 'auto',
+			left: '3%',
+			right: '3%',
 			font: {
-				fontSize: 18,
+				fontSize: sizeWithFont,
 				fontFamily: 'take_out_the_garbage'
 			}
 		}));

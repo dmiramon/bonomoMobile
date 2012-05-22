@@ -5,7 +5,9 @@ function MyEventsWindow(controller) {
 	var EventStatusWindow = require('EventStatusWindow');
 	var model = require('/model/Model');
 	
-	var size = 13;
+	var size = 16;
+	var sizeWithFont = 18;
+	
 	var window = Titanium.UI.createWindow({
 		layout: 'absolute',
 		backgroundColor: '#FFFFFF',
@@ -29,10 +31,9 @@ function MyEventsWindow(controller) {
 		var lista = Titanium.UI.createTableView({
 			width: '100%',
 			height: '100%',
-			bottom: 5,
-			top: 5
+			bottom: '2%',
+			top: '2%'
 		});
-		viewBase.add(lista);
 		
 		var data = [];
 		var par = 0;
@@ -47,10 +48,10 @@ function MyEventsWindow(controller) {
 			viewLabels.add(Titanium.UI.createLabel({
 				text: "WHERE ",
 				color: '#F8B526',
-				left: '0',
+				left: '3%',
 				textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 				font: {
-					fontSize: 15,
+					fontSize: sizeWithFont,
 					fontFamily: 'take_out_the_garbage'
 				}
 			}));
@@ -58,14 +59,12 @@ function MyEventsWindow(controller) {
 			viewDatos.add(Titanium.UI.createLabel({
 				text: events[index].place.name,
 				color: '#000000',
-				textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
-				left: '0',
 				font: {
 					fontSize: size
 				}
 			}));
 			
-			var moreBtn = Titanium.UI.createButton({
+			/*var moreBtn = Titanium.UI.createButton({
 				backgroundImage: '../images/moinfo.png',
 				width: '61',
 				height: '26',
@@ -77,7 +76,7 @@ function MyEventsWindow(controller) {
 				bonomoController.showStatusEvent(event.source.event, function(result) {
 					controller.open(new EventStatusWindow(controller, result).window);
 				});
-			});
+			});*/
 			
 			if (par % 2 != 0) {
 				tableRow.setBackgroundImage('../images/fondolista.png');
@@ -87,35 +86,39 @@ function MyEventsWindow(controller) {
 			tableRow.add(viewLabels);
 			tableRow.add(Titanium.UI.createView({width:'2%'}));
 			tableRow.add(viewDatos);
-			tableRow.add(Titanium.UI.createView({width:'5%'}));
-			tableRow.add(moreBtn);
+			//tableRow.add(Titanium.UI.createView({width:'5%'}));
+			//tableRow.add(moreBtn);
 			data.push(tableRow);
 			par++;
 		}
 	
 		lista.data = data;
-	} else {
+		lista.addEventListener('click', function(event) {
+			controller.activityIndicator.show();
+			bonomoController.showStatusEvent(events[event.index], function(result) {
+				controller.open(new EventStatusWindow(controller, result).window);
+			});
+		});
+		
+		viewBase.add(lista);
+	} 
+	else {
 		viewBase.add(Titanium.UI.createView({height: '25%'}));
 		viewBase.add(Titanium.UI.createLabel({
 			text: 'You are not participating in any event. Please go back to create or find one!',
 			color: '#000000',
 			width: 'auto',
 			height: 'auto',
+			left: '3%',
+			right: '3%',
 			font: {
-				fontSize: 18,
+				fontSize: sizeWithFont,
 				fontFamily: 'take_out_the_garbage'
 			}
 		}));
 	}
 	
 	window.add(viewBase);
-	
-	/*lista.addEventListener('click', function(event) {
-		bonomoController.interact(events[event.index].owner_id, events[event.index].id, 1, function() {
-			null;
-		});
-	});*/
-	
 	this.window = window;
 }
 

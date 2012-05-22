@@ -51,6 +51,7 @@ function PlacesWindow(controller, checkin, places) {
 		viewDatos.add(Titanium.UI.createLabel({
 			text: places[index].title,
 			color: '#000000',
+			left: '2%',
 			font: {
 				fontSize: 15
 			}
@@ -59,17 +60,18 @@ function PlacesWindow(controller, checkin, places) {
 			text: places[index].distancia + ' mts',
 			color: '#4f4f4f',
 			textAlign: 'left',
-			left: 3,
+			left: '2%',
 			font: {
 				fontSize: 13
 			}
 		}));
 		tableRow.add(Titanium.UI.createImageView({
 			image: places[index].imagen,
+			left: '3%',
 			width: 44,
 			height: 44
 		}));
-		tableRow.add(Titanium.UI.createView({width:5}));
+		tableRow.add(Titanium.UI.createView({width:'3%'}));
 		tableRow.add(viewDatos);
 		data.push(tableRow);
 	}

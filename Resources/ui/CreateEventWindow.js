@@ -4,6 +4,10 @@ function CreateEventWindow(controller, checkin, place) {
 	var EventStatusWindow = require('EventStatusWindow');
 	var BoredWindow = require('BoredWindow');
 	
+	var size = 16;
+	var sizeWithFont = 18;
+	var sizeTitle = 22;
+	
 	var window = Titanium.UI.createWindow({
 		layout: 'absolute',
 		backgroundColor: '#FFFFFF',
@@ -23,51 +27,61 @@ function CreateEventWindow(controller, checkin, place) {
 		height: '49',
 	}));
 	
-	var viewWhere = Titanium.UI.createView({
-		layout: 'horizontal',
-		width: 'auto',
-		height: 'auto'
-	});
-	viewWhere.add(Titanium.UI.createLabel({
-		text: "WHERE ",
-		color: '#97D1FD',
+	var labelTitle = Titanium.UI.createLabel({
+		text: 'CREATE AN EVENT',
+		color: '#000000',
 		font: {
-			fontSize: 18,
+			fontSize: sizeTitle,
 			fontFamily: 'take_out_the_garbage'
 		}
-	}));
-	viewWhere.add(Titanium.UI.createView({width:'2%'}));
-	viewWhere.add(Titanium.UI.createLabel({
+	});
+	
+	var labelPlace = Titanium.UI.createLabel({
 		text: place.title,
 		color: '#000000',
 		font: {
-			fontSize: 16
+			fontSize: size
 		}
-	}));
+	});
 
 	var labelPlans = Titanium.UI.createLabel({
 		text: 'What are your plans in 140 characters?',
 		color: '#000000',
 		font: {
-			fontSize: 16
+			fontSize: sizeTitle,
+			fontFamily: 'take_out_the_garbage'
 		}
 	});
 	var textArea = Ti.UI.createTextArea({
 		value: "",
 		width: "80%",
-		height: "10%",
+		height: "15%",
 		borderColor: "black",
 		borderRadius: 5,
 		borderWidth:1,
 		font: {
-			fontSize: 16
+			fontSize: size
+		}
+	});
+	textArea.addEventListener('change', function(e) {
+	    if(e.value.length > 140) {
+	        textArea.value = e.value.substr(0, 140);
+	    }
+	});
+	
+	var labelTime = Titanium.UI.createLabel({
+		text: 'Your event ends at',
+		color: '#000000',
+		font: {
+			fontSize: sizeTitle,
+			fontFamily: 'take_out_the_garbage'
 		}
 	});
 	
 	var createButton = Titanium.UI.createButton({
 		title: "Create",
 		width: 85,
-		height: 75
+		height: 60
 	});
 	
 	createButton.addEventListener('click', function(e) {
@@ -79,7 +93,7 @@ function CreateEventWindow(controller, checkin, place) {
 		bonomoController.createEvent(eventoObject, function(eventObjectResponse) {			
 			bonomoController.synchronizeFB(function(result) {
 				window.close();
-				controller.windowStack[controller.windowStack.length - 1].close();
+				//controller.windowStack[controller.windowStack.length - 1].close();
 				controller.open(new EventStatusWindow(controller, eventObjectResponse).window);
 			});			
 		});
@@ -108,11 +122,15 @@ function CreateEventWindow(controller, checkin, place) {
 	});
 	
 	viewBase.add(Titanium.UI.createView({height: '2%'}));
-	viewBase.add(viewWhere);
+	viewBase.add(labelTitle);
+	viewBase.add(Titanium.UI.createView({height: '2%'}));
+	viewBase.add(labelPlace);
 	viewBase.add(Titanium.UI.createView({height: '2%'}));
 	viewBase.add(labelPlans);
 	viewBase.add(Titanium.UI.createView({height: '2%'}));
 	viewBase.add(textArea);
+	viewBase.add(Titanium.UI.createView({height: '2%'}));
+	viewBase.add(labelTime);
 	viewBase.add(Titanium.UI.createView({height: '2%'}));
 	viewBase.add(endTimePicker);
 	viewBase.add(Titanium.UI.createView({height: '2%'}));
